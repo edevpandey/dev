@@ -49,6 +49,16 @@ const data = {
      Set playStore / github / website to a URL, or leave '' to hide that link. */
   projects: [
     {
+      title: 'Sinko',
+      subtitle: 'Your phone, pinned to your PC',
+      category: 'Tools',
+      image: 'sinko/img/feature.webp',
+      icon: 'sinko/img/icon-192.png',
+      text: 'Turns an Android phone into a numpad, air mouse, keyboard, media remote, barcode & document scanner and file sharer for your PC, over Bluetooth or Wi-Fi.',
+      tags: ['Flutter', 'Bluetooth HID', 'OpenCV', 'Kotlin'],
+      playStore: '', github: '', website: 'sinko/',
+    },
+    {
       title: 'Account Sir',
       subtitle: 'Kairavi Education',
       category: 'Education',
@@ -168,7 +178,7 @@ function projectCard(p) {
   const links = [
     p.playStore && `<a href="${esc(p.playStore)}"${ext(p.playStore)}>${icons.play(15)} Play Store</a>`,
     p.github && `<a href="${esc(p.github)}"${ext(p.github)}>${icons.github(16)} Source</a>`,
-    p.website && `<a href="${esc(p.website)}"${ext(p.website)}>${icons.ext(16)} Live</a>`,
+    p.website && `<a href="${esc(p.website)}"${ext(p.website)}>${icons.ext(16)} Website</a>`,
   ].filter(Boolean);
   return `
     <article class="card project reveal" data-cat="${esc(p.category)}">
