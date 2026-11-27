@@ -295,6 +295,6 @@ $('#themeToggle').addEventListener('click', () => {
   const root = document.documentElement;
   const next = root.getAttribute('data-theme') === 'light' ? 'dark' : 'light';
   root.setAttribute('data-theme', next);
-  document.querySelector('meta[name="theme-color"]').setAttribute('content', next === 'light' ? '#f6f7fb' : '#0b0d17');
+  document.querySelector('meta[name="theme-color"]').setAttribute('content', next === 'light' ? '#f4f8f6' : '#07110e');
   try { localStorage.setItem('theme', next); } catch (e) {}
 });
