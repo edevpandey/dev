@@ -6,14 +6,19 @@
 const data = {
   roles: ['Software Developer', 'Flutter App Developer', 'Technical Writer', 'Accounting Teacher'],
 
-  email: 'gkpointnepal@gmail.com',
+  /* Email is stored scrambled so scraper bots can't read it from the source.
+     It is only assembled in the browser when a visitor clicks.
+     To change it, run this in the browser console and paste the two results:
+       [user, domain].map(s => btoa([...s].reverse().join('')))
+     e.g. for "name@gmail.com": user = 'name', domain = 'gmail.com' */
+  emailParts: ['bGFwZW50bmlvcGtn', 'bW9jLmxpYW1n'],
   location: 'Kathmandu, Nepal',
   phone: '', // e.g. '+977 98XXXXXXXX' — leave empty to hide
 
   socials: [
     { name: 'GitHub', url: 'https://github.com/edevpandey', icon: 'github' },
     { name: 'Facebook', url: 'https://facebook.com/edevpandey', icon: 'facebook' },
-    { name: 'Email', url: 'mailto:gkpointnepal@gmail.com', icon: 'mail' },
+    { name: 'Email', url: 'email', icon: 'mail' }, // 'email' = protected address
   ],
 
   skills: [
@@ -138,7 +143,9 @@ const ext = (url) => (url.startsWith('http') ? ' target="_blank" rel="noopener n
 
 function renderSocials(el, size) {
   el.innerHTML = data.socials
-    .map((s) => `<a href="${esc(s.url)}" aria-label="${esc(s.name)}" title="${esc(s.name)}"${ext(s.url)}>${icons[s.icon](size)}</a>`)
+    .map((s) => s.url === 'email'
+      ? `<a href="#contact" class="js-email" aria-label="${esc(s.name)}" title="${esc(s.name)}">${icons[s.icon](size)}</a>`
+      : `<a href="${esc(s.url)}" aria-label="${esc(s.name)}" title="${esc(s.name)}"${ext(s.url)}>${icons[s.icon](size)}</a>`)
     .join('');
 }
 
@@ -198,12 +205,33 @@ filters.addEventListener('click', (e) => {
 });
 
 // Contact
-$('#mailBtn').href = `mailto:${data.email}`;
+// Protected email: decoded only on user interaction, never written into the page source.
+const getEmail = () => data.emailParts.map((p) => [...atob(p)].reverse().join('')).join('@');
+
+$('#mailBtn').classList.add('js-email');
+$('#mailBtn').href = '#contact';
 $('#contactMeta').innerHTML = [
-  `<a href="mailto:${esc(data.email)}">${icons.mail(18)} ${esc(data.email)}</a>`,
+  `<button type="button" class="reveal-email" id="revealEmail">${icons.mail(18)} <span>Show email</span></button>`,
   data.phone && `<a href="tel:${esc(data.phone.replace(/\s/g, ''))}">${icons.call(18)} ${esc(data.phone)}</a>`,
   `<span>${icons.pin(18)} ${esc(data.location)}</span>`,
 ].filter(Boolean).join('');
+
+document.addEventListener('click', (e) => {
+  const link = e.target.closest('.js-email');
+  if (link) {
+    e.preventDefault();
+    window.location.href = 'mailto:' + getEmail();
+    return;
+  }
+  const btn = e.target.closest('#revealEmail');
+  if (btn) {
+    const a = document.createElement('a');
+    a.href = 'mailto:' + getEmail();
+    a.innerHTML = `${icons.mail(18)} ${esc(getEmail())}`;
+    btn.replaceWith(a);
+    a.focus();
+  }
+});
 
 $('#year').textContent = new Date().getFullYear();
 
