@@ -56,7 +56,7 @@ const data = {
       icon: 'sinko/img/icon-192.png',
       text: 'Turns an Android phone into a numpad, air mouse, keyboard, media remote, barcode & document scanner and file sharer for your PC, over Bluetooth or Wi-Fi.',
       tags: ['Flutter', 'Bluetooth HID', 'OpenCV', 'Kotlin'],
-      playStore: '', github: '', website: 'sinko/',
+      playStore: '', github: '', website: 'sinko/index.html',
     },
     {
       title: 'Account Sir',
