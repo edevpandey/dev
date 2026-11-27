@@ -6,14 +6,14 @@
 const data = {
   roles: ['Software Developer', 'Flutter App Developer', 'Technical Writer', 'Accounting Teacher'],
 
-  email: 'edevpandey@gmail.com',
+  email: 'gkpointnepal@gmail.com',
   location: 'Kathmandu, Nepal',
   phone: '', // e.g. '+977 98XXXXXXXX' — leave empty to hide
 
   socials: [
     { name: 'GitHub', url: 'https://github.com/edevpandey', icon: 'github' },
     { name: 'Facebook', url: 'https://facebook.com/edevpandey', icon: 'facebook' },
-    { name: 'Email', url: 'mailto:edevpandey@gmail.com', icon: 'mail' },
+    { name: 'Email', url: 'mailto:gkpointnepal@gmail.com', icon: 'mail' },
   ],
 
   skills: [
